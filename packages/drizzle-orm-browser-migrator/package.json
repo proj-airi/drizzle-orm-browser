@@ -1,7 +1,7 @@
 {
   "name": "@proj-airi/drizzle-orm-browser-migrator",
   "type": "module",
-  "version": "0.4.27",
+  "version": "0.1.0",
   "description": "🦆 Drizzle ORM migrator applies migrations in browser environment, for PGLite, SQLite, DuckDB WASM!",
   "author": {
     "name": "Neko Ayaka",
