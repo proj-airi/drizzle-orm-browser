@@ -45,6 +45,10 @@ jobs:
       - name: Packages build
         run: pnpm run build
 
+      - run: pnpm dlx changelogithub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Packages publish
         run: pnpm publish -r --access public --no-git-checks
         env:
