@@ -1,0 +1,52 @@
+{
+  "name": "@proj-airi/drizzle-orm-browser-migrator",
+  "type": "module",
+  "version": "0.4.27",
+  "description": "🦆 Drizzle ORM migrator applies migrations in browser environment, for PGLite, SQLite, DuckDB WASM!",
+  "author": {
+    "name": "Neko Ayaka",
+    "email": "neko@ayaka.moe",
+    "url": "https://github.com/nekomeowww"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/proj-airi/drizzle-orm-browser.git",
+    "directory": "packages/drizzle-orm-browser-migrator"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "node": "./dist/index.mjs"
+    },
+    "./pglite": {
+      "types": "./dist/pglite/index.d.mts",
+      "import": "./dist/pglite/index.mjs",
+      "node": "./dist/pglite/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "tsdown",
+    "stub": "tsdown",
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "attw": "attw --pack . --profile esm-only --ignore-rules cjs-resolves-to-esm"
+  },
+  "peerDependencies": {
+    "drizzle-orm": ">=0.40.0"
+  },
+  "dependencies": {
+    "@guiiai/logg": "^1.0.10"
+  }
+}

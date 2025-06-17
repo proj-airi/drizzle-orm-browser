@@ -1,0 +1,25 @@
+version: "0.2"
+ignorePaths: []
+dictionaryDefinitions: []
+dictionaries: []
+words:
+  - airi
+  - Attributify
+  - attw
+  - Ayaka
+  - bigserial
+  - bumpp
+  - defu
+  - guiiai
+  - logg
+  - Neko
+  - nekw
+  - pglite
+  - taze
+  - tsdown
+  - uncrypto
+  - unocss
+  - unplugin
+  - vueuse
+ignoreWords: []
+import: []

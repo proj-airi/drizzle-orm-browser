@@ -1,0 +1,13 @@
+[build]
+base = "/"
+command = "pnpm -F @proj-airi/drizzle-orm-browser-playground... run build"
+publish = "/apps/drizzle-orm-browser-playground/dist"
+
+[build.environment]
+NODE_VERSION = "23"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+force = false
