@@ -11,25 +11,25 @@ export default await antfu(
       'cspell.config.yml',
     ],
     rules: {
-     'perfectionist/sort-imports': [
-      'error',
-      {
-        groups: [
-          'type-builtin',
-          'type-import',
-          'value-builtin',
-          'value-external',
-          'type-internal',
-          ['type-parent', 'type-sibling', 'type-index'],
-          'value-internal',
-          ['value-parent', 'value-sibling', 'value-index'],
-          ['wildcard-value-parent', 'wildcard-value-sibling', 'wildcard-value-index'],
-          'side-effect',
-          'style',
-        ],
-        newlinesBetween: 'always',
-      },
-    ],
+      'perfectionist/sort-imports': [
+        'error',
+        {
+          groups: [
+            'type-builtin',
+            'type-import',
+            'value-builtin',
+            'value-external',
+            'type-internal',
+            ['type-parent', 'type-sibling', 'type-index'],
+            'value-internal',
+            ['value-parent', 'value-sibling', 'value-index'],
+            ['wildcard-value-parent', 'wildcard-value-sibling', 'wildcard-value-index'],
+            'side-effect',
+            'style',
+          ],
+          newlinesBetween: 'always',
+        },
+      ],
     },
   },
   {

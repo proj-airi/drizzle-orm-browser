@@ -2,6 +2,7 @@ import type { PgliteDatabase } from 'drizzle-orm/pglite'
 
 import { Format, useLogg } from '@guiiai/logg'
 import { sql } from 'drizzle-orm'
+
 import packageJSON from '../../package.json' with { type: 'json' }
 
 async function listTables<TSchema extends Record<string, unknown>>(db: PgliteDatabase<TSchema>) {
