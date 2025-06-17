@@ -65,5 +65,8 @@ jobs:
       - name: Install
         run: pnpm install
 
+      - name: Build
+        run: pnpm run build:packages
+
       - name: Typecheck
         run: pnpm run typecheck

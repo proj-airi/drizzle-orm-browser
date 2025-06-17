@@ -10,6 +10,7 @@
     "url": "https://github.com/nekomeowww"
   },
   "scripts": {
+    "postinstall": "pnpm run build:packages",
     "dev": "pnpm -F @proj-airi/drizzle-orm-browser-playground dev",
     "build": "pnpm -r -F=\"./packages/*\" -F=\"./playground\" run build",
     "build:packages": "pnpm -F=\"./packages/*\" run build",
