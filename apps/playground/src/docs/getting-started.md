@@ -1,3 +1,7 @@
+- [Why?](#why)
+- [Getting Started](#getting-started)
+- [TypeScript support](#typescript-support)
+
 ## Why?
 
 Building a local-first app, or embedded memory system for LLMs in browser? It's
