@@ -1,7 +1,7 @@
 [build]
 base = "/"
 command = "pnpm -F @proj-airi/drizzle-orm-browser-playground... run build"
-publish = "/apps/drizzle-orm-browser-playground/dist"
+publish = "/apps/playground/dist"
 
 [build.environment]
 NODE_VERSION = "23"
