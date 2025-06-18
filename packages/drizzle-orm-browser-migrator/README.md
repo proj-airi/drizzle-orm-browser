@@ -24,8 +24,8 @@ npm i @proj-airi/drizzle-orm-browser-migrator -D
 ```typescript
 import { IdbFs, PGlite } from '@electric-sql/pglite'
 import { migrate } from '@proj-airi/drizzle-orm-browser-migrator/pglite'
+import migrations from 'drizzle-migrations.sql'
 import { drizzle } from 'drizzle-orm/pglite'
-import migrations from 'virtual:drizzle-migrations.sql'
 
 const pgLite = new PGlite({ fs: new IdbFs('pglite-database') })
 const db = drizzle({ client: pgLite })

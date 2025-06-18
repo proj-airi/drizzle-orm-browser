@@ -9,6 +9,9 @@ import { createUnplugin, type UnpluginInstance } from 'unplugin'
 const VirtualModuleID = 'virtual:drizzle-migrations.sql'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
 
+const VirtualModuleIDPlain = 'drizzle-migrations:sql'
+const ResolvedVirtualModuleIDPlain = `\0${VirtualModuleIDPlain}`
+
 import { loadConfig } from 'c12'
 
 export const DrizzleORMMigrations: UnpluginInstance<{ root?: string } | undefined, false>
@@ -72,11 +75,11 @@ export const DrizzleORMMigrations: UnpluginInstance<{ root?: string } | undefine
         }
       },
       resolveId(source) {
-        if (source.startsWith(VirtualModuleID))
+        if (source.startsWith(VirtualModuleID) || source.startsWith(VirtualModuleIDPlain))
           return `\0${source}`
       },
       load(id) {
-        if (!id.startsWith(ResolvedVirtualModuleId))
+        if (!id.startsWith(ResolvedVirtualModuleId) && !id.startsWith(ResolvedVirtualModuleIDPlain))
           return null
         if (!_drizzleConfig.out)
           return null

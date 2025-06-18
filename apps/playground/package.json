@@ -30,9 +30,13 @@
     "defu": "^6.1.4",
     "drizzle-orm": "^0.44.2",
     "es-toolkit": "^1.39.3",
+    "unplugin-vue-markdown": "^28.3.1",
     "vue": "^3.5.16"
   },
   "devDependencies": {
+    "@iconify-json/simple-icons": "^1.2.39",
+    "@iconify-json/solar": "^1.2.2",
+    "@shikijs/markdown-it": "^3.6.0",
     "@unocss/reset": "^66.2.0",
     "@vitejs/plugin-vue": "^5.2.4",
     "drizzle-kit": "^0.31.1",

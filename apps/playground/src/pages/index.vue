@@ -33,11 +33,11 @@ function clearDatabase() {
 </script>
 
 <template>
-  <div style="white-space: pre-wrap;" max-h-80dvh overflow-y-scroll font-mono>
+  <div style="white-space: pre-wrap;" bg="neutral-50 dark:neutral-900" max-h-100 overflow-y-scroll rounded-lg p-4 font-mono>
     {{ JSON.stringify(results, null, 2) }}
   </div>
   <div>
-    <button rounded-lg bg-neutral-500 px-3 py-2 @click="clearDatabase">
+    <button rounded-lg bg="neutral-100 dark:neutral-600" px-3 py-2 @click="clearDatabase">
       Clear Database
     </button>
   </div>

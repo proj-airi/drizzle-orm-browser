@@ -19,7 +19,7 @@ yarn i @proj-airi/unplugin-drizzle-orm-migrations -D
 npm i @proj-airi/unplugin-drizzle-orm-migrations -D
 ```
 
-### UnoCSS usage
+## Usage
 
 ```typescript
 import DrizzleORMMigrations from '@proj-airi/unplugin-drizzle-orm-migrations/vite'
@@ -32,6 +32,26 @@ export default defineConfig({
     // ...
   ],
 })
+```
+
+Then you can import the migrations in your code:
+
+```ts
+import migrations from 'drizzle-migrations.sql'
+```
+
+## TypeScript support
+
+Add the following to your `tsconfig.json` to enable type support for the virtual module:
+
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@proj-airi/unplugin-drizzle-orm-migrations/types"
+    ]
+  }
+}
 ```
 
 ## Other side projects born from Project AIRI
