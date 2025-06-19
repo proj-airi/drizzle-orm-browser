@@ -10,18 +10,10 @@
 
 ```shell
 # from @antfu/ni, can be installed via `npm i -g @antfu/ni`
-ni -D \
-  @proj-airi/unplugin-drizzle-orm-migrations \
-  @proj-airi/drizzle-orm-browser-migrator -D
-pnpm i -D \
-  @proj-airi/unplugin-drizzle-orm-migrations \
-  @proj-airi/drizzle-orm-browser-migrator -D
-yarn i -D \
-  @proj-airi/unplugin-drizzle-orm-migrations \
-  @proj-airi/drizzle-orm-browser-migrator -D
-npm i -D \
-  @proj-airi/unplugin-drizzle-orm-migrations \
-  @proj-airi/drizzle-orm-browser-migrator -D
+ni -D @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-browser-migrator
+pnpm i -D @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-browser-migrator
+yarn i -D @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-browser-migrator
+npm i -D @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-browser-migrator
 ```
 
 Configure your `vite.config.ts` (or rolldown, rspack, Webpack, esbuild, all supported) to use the plugin:
