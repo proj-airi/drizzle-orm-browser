@@ -6,6 +6,55 @@
 > we aim to build a LLM-driven VTuber like [Neuro-sama](https://www.youtube.com/@Neurosama) (subscribe
 >  if you didn't!) if you are interested in, please do give it a try on [live demo](https://airi.moeru.ai).
 
+## Getting Started
+
+```shell
+# from @antfu/ni, can be installed via `npm i -g @antfu/ni`
+ni -D \
+  @proj-airi/unplugin-drizzle-orm-migrations \
+  @proj-airi/drizzle-orm-browser-migrator -D
+pnpm i -D \
+  @proj-airi/unplugin-drizzle-orm-migrations \
+  @proj-airi/drizzle-orm-browser-migrator -D
+yarn i -D \
+  @proj-airi/unplugin-drizzle-orm-migrations \
+  @proj-airi/drizzle-orm-browser-migrator -D
+npm i -D \
+  @proj-airi/unplugin-drizzle-orm-migrations \
+  @proj-airi/drizzle-orm-browser-migrator -D
+```
+
+Configure your `vite.config.ts` (or rolldown, rspack, Webpack, esbuild, all supported) to use the plugin:
+
+```ts
+import { unpluginDrizzleOrmMigrations } from '@proj-airi/unplugin-drizzle-orm-migrations/vite'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    // ... other plugins
+    unpluginDrizzleOrmMigrations()
+  ]
+})
+```
+
+In your actual initialization code (e.g. `src/main.ts`, `src/App.vue`, `src/App.tsx` or `src/index.ts`):
+
+```ts
+import { IdbFs, PGlite } from '@electric-sql/pglite'
+// Import the migrator
+import { migrate } from '@proj-airi/drizzle-orm-browser-migrator/pglite'
+import { drizzle } from 'drizzle-orm/pglite'
+// Import the bundled migrations
+import migrations from 'virtual:drizzle-migrations.sql'
+
+const pgLite = new PGlite({ fs: new IdbFs('pglite-database') })
+const db = drizzle({ client: pgLite })
+
+// Apply the migrations
+await migrate(db, migrations)
+```
+
 ## Why?
 
 Building a local-first app, or embedded memory system for LLMs in browser? It's
@@ -87,46 +136,6 @@ import migrations from 'virtual:drizzle-migrations.sql'
 
 const pgLite = new PGlite({ fs: new IdbFs('pglite-database') })
 const db = drizzle({ client: pgLite })
-await migrate(db, migrations)
-```
-
-## Getting Started
-
-```shell
-ni @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-browser-migrator -D # from @antfu/ni, can be installed via `npm i -g @antfu/ni`
-pnpm i @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-browser-migrator -D
-yarn i @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-browser-migrator -D
-npm i @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-browser-migrator -D
-```
-
-Configure your `vite.config.ts` (or rolldown, rspack, Webpack, esbuild, all supported) to use the plugin:
-
-```ts
-import { unpluginDrizzleOrmMigrations } from '@proj-airi/unplugin-drizzle-orm-migrations/vite'
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  plugins: [
-    // ... other plugins
-    unpluginDrizzleOrmMigrations()
-  ]
-})
-```
-
-In your actual initialization code (e.g. `src/main.ts`, `src/App.vue`, `src/App.tsx` or `src/index.ts`):
-
-```ts
-import { IdbFs, PGlite } from '@electric-sql/pglite'
-// Import the migrator
-import { migrate } from '@proj-airi/drizzle-orm-browser-migrator/pglite'
-import { drizzle } from 'drizzle-orm/pglite'
-// Import the bundled migrations
-import migrations from 'virtual:drizzle-migrations.sql'
-
-const pgLite = new PGlite({ fs: new IdbFs('pglite-database') })
-const db = drizzle({ client: pgLite })
-
-// Apply the migrations
 await migrate(db, migrations)
 ```
 

@@ -7,47 +7,47 @@
 }
 
 .markdown-body {
-  p {
+  & p {
     padding: 0.5rem 0;
   }
 
-  h2 {
+  & h2 {
     font-size: 1.5rem;
     padding: 1rem 0;
   }
 
-  h3 {
+  & h3 {
     font-size: 1.25rem;
     padding: 0.5rem 0;
   }
 
-  h4 {
+  & h4 {
     font-size: 1rem;
     padding: 0.5rem 0;
   }
 
-  h5 {
+  & h5 {
     font-size: 0.875rem;
     padding: 0.5rem 0;
   }
 
-  h6 {
+  & h6 {
     font-size: 0.75rem;
     padding: 0.5rem 0;
   }
 
-  pre {
+  & pre {
     font-size: 0.75rem;
     padding: 1rem 1rem;
     border-radius: 12px;
     overflow-x: scroll;
   }
 
-  p code {
+  & p code {
     font-size: 0.875rem;
   }
 
-  p code {
+  & p code {
     position: relative;
 
     &::after {
@@ -64,6 +64,23 @@
       border-radius: 4px;
       background-color: var(--color-code-background);
     }
+  }
+
+  & ul {
+    list-style-type: disc;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  & a {
+    color: #ffffff;
+  }
+}
+
+.dark .markdown-body {
+  & a {
+    color:rgb(72, 142, 255);
   }
 }
 
