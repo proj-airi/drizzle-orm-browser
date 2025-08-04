@@ -4,7 +4,7 @@
  * @module
  */
 
-import { DrizzleORMMigrations } from './index'
+import { newPlugin } from './index'
 
 /**
  * Rspack plugin
@@ -17,6 +17,6 @@ import { DrizzleORMMigrations } from './index'
  * }
  * ```
  */
-const rspack = DrizzleORMMigrations.rspack as typeof DrizzleORMMigrations.rspack
+const rspack = newPlugin().rspack
 export default rspack
 export { rspack as 'module.exports' }

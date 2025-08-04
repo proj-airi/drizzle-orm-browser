@@ -4,7 +4,7 @@
  * @module
  */
 
-import { DrizzleORMMigrations } from './index'
+import { newPlugin } from './index'
 
 /**
  * Rolldown plugin
@@ -19,6 +19,6 @@ import { DrizzleORMMigrations } from './index'
  * }
  * ```
  */
-const rolldown = DrizzleORMMigrations.rolldown as typeof DrizzleORMMigrations.rolldown
+const rolldown = newPlugin(true).rolldown
 export default rolldown
 export { rolldown as 'module.exports' }

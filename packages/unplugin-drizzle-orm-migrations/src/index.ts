@@ -3,18 +3,19 @@ import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { cwd, env } from 'node:process'
 
+import { loadConfig } from 'c12'
 import { subtle } from 'uncrypto'
 import { createUnplugin, type UnpluginInstance } from 'unplugin'
 
-const VirtualModuleID = 'virtual:drizzle-migrations.sql'
-const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
+export function newPlugin(isRolldownLike = false) {
+  // https://github.com/rolldown/rolldown/issues/1115
+  const VirtualModuleID = 'virtual:drizzle-migrations.sql'
+  const ResolvedVirtualModuleId = !isRolldownLike ? `\0${VirtualModuleID}` : VirtualModuleID
 
-const VirtualModuleIDPlain = 'drizzle-migrations:sql'
-const ResolvedVirtualModuleIDPlain = `\0${VirtualModuleIDPlain}`
+  const VirtualModuleIDPlain = 'drizzle-migrations:sql'
+  const ResolvedVirtualModuleIDPlain = !isRolldownLike ? `\0${VirtualModuleIDPlain}` : VirtualModuleIDPlain
 
-import { loadConfig } from 'c12'
-
-export const DrizzleORMMigrations: UnpluginInstance<{ root?: string } | undefined, false>
+  const DrizzleORMMigrations: UnpluginInstance<{ root?: string } | undefined, false>
   = createUnplugin((rawOptions = { root: cwd() }) => {
     const options = rawOptions || { root: cwd() }
 
@@ -46,7 +47,7 @@ export const DrizzleORMMigrations: UnpluginInstance<{ root?: string } | undefine
         if (!_drizzleConfig.out)
           return
 
-        const journalJSONContent = (await readFile(join(_drizzleConfig.out, 'meta/_journal.json'))).toString('utf-8')
+        const journalJSONContent = (await readFile(join(rawOptions.root, _drizzleConfig.out, 'meta/_journal.json'))).toString('utf-8')
         const journal = JSON.parse(journalJSONContent) as {
           entries: {
             idx: number
@@ -59,7 +60,7 @@ export const DrizzleORMMigrations: UnpluginInstance<{ root?: string } | undefine
 
         for (let index = 0; index < journal.entries.length; index++) {
           const { when, idx, tag } = journal.entries[index]
-          const migrateSQLFilePath = join(_drizzleConfig.out, `${tag}.sql`)
+          const migrateSQLFilePath = join(rawOptions.root, _drizzleConfig.out, `${tag}.sql`)
           const migrateSQLFileContent = (await readFile(migrateSQLFilePath)).toString('utf-8')
 
           migrateSQLFileContents.push({
@@ -76,7 +77,7 @@ export const DrizzleORMMigrations: UnpluginInstance<{ root?: string } | undefine
       },
       resolveId(source) {
         if (source.startsWith(VirtualModuleID) || source.startsWith(VirtualModuleIDPlain))
-          return `\0${source}`
+          return !isRolldownLike ? `\0${source}` : source
       },
       load(id) {
         if (!id.startsWith(ResolvedVirtualModuleId) && !id.startsWith(ResolvedVirtualModuleIDPlain))
@@ -88,3 +89,6 @@ export const DrizzleORMMigrations: UnpluginInstance<{ root?: string } | undefine
       },
     }
   })
+
+  return DrizzleORMMigrations
+}

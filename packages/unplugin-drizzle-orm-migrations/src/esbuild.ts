@@ -4,7 +4,7 @@
  * @module
  */
 
-import { DrizzleORMMigrations } from './index'
+import { newPlugin } from './index'
 
 /**
  * Esbuild plugin
@@ -18,6 +18,6 @@ import { DrizzleORMMigrations } from './index'
  * })
  * ```
  */
-const esbuild = DrizzleORMMigrations.esbuild as typeof DrizzleORMMigrations.esbuild
+const esbuild = newPlugin().esbuild
 export default esbuild
 export { esbuild as 'module.exports' }

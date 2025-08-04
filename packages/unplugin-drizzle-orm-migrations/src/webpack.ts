@@ -4,7 +4,7 @@
  * @module
  */
 
-import { DrizzleORMMigrations } from './index'
+import { newPlugin } from './index'
 
 /**
  * Webpack plugin
@@ -17,6 +17,6 @@ import { DrizzleORMMigrations } from './index'
  * }
  * ```
  */
-const webpack = DrizzleORMMigrations.webpack as typeof DrizzleORMMigrations.webpack
+const webpack = newPlugin().webpack
 export default webpack
 export { webpack as 'module.exports' }
