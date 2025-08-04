@@ -4,7 +4,7 @@
  * @module
  */
 
-import { DrizzleORMMigrations } from './index'
+import { newPlugin } from './index'
 
 /**
  * Vite plugin
@@ -19,6 +19,6 @@ import { DrizzleORMMigrations } from './index'
  * })
  * ```
  */
-const vite = DrizzleORMMigrations.vite as typeof DrizzleORMMigrations.vite
+const vite = newPlugin().vite
 export default vite
 export { vite as 'module.exports' }

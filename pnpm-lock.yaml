@@ -4,9 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  global: link:../../../Library/pnpm/global/5/node_modules/global
+
 importers:
 
   .:
+    dependencies:
+      global:
+        specifier: link:../../../Library/pnpm/global/5/node_modules/global
+        version: link:../../../Library/pnpm/global/5/node_modules/global
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^4.14.1
@@ -133,7 +140,7 @@ importers:
         specifier: ^1.0.10
         version: 1.0.10
       drizzle-orm:
-        specifier: '>=0.40.0'
+        specifier: '>=0.44.0'
         version: 0.44.2(@electric-sql/pglite@0.3.3)
 
   packages/unplugin-drizzle-orm-migrations:
