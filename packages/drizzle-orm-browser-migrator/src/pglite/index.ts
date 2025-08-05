@@ -35,7 +35,7 @@ export async function migrate<TSchema extends Record<string, unknown>>(db: Pglit
     );`,
   )
 
-  const deployments = await db.execute<{
+  const migratedHistory = await db.execute<{
     id: number
     hash: string
     created_at: number
@@ -49,20 +49,22 @@ export async function migrate<TSchema extends Record<string, unknown>>(db: Pglit
     LIMIT 1;`,
   )
 
-  const deployment = deployments.rows.at(0)
-  const migrations = bundledMigrations.filter((migration) => {
-    const timestamp = deployment?.created_at ?? 0
-    return !deployment || Number(timestamp) < migration.when
+  const lastMigration = migratedHistory.rows.at(0)
+  const pendingMigration = bundledMigrations.filter((migration) => {
+    const timestamp = lastMigration?.created_at ?? 0
+    // if there is no last migration, then all migrations should be returned
+    // otherwise, if any of the migrations happens later than the last migration, they should be considered pending
+    return !lastMigration || Number(timestamp) < migration.when
   })
-  if (migrations.length === 0) {
+  if (pendingMigration.length === 0) {
     log.withField('tables', await listTables(db)).debug('no pending migrations')
     log.log('no pending migrations to apply')
     return
   }
 
   await db.transaction(async (tx) => {
-    for (let i = 0; i < migrations.length; i++) {
-      const migration = migrations[i]
+    for (let i = 0; i < pendingMigration.length; i++) {
+      const migration = pendingMigration[i]
 
       log.log(`${i + 1}. Deploying migration:`)
       log.log(`     tag  => ${migration.tag}`)
@@ -82,5 +84,5 @@ export async function migrate<TSchema extends Record<string, unknown>>(db: Pglit
   })
 
   log.withField('tables', await listTables(db)).debug('migration successful')
-  log.log(`all ${migrations.length} pending migrations applied!`)
+  log.log(`all ${pendingMigration.length} pending migrations applied!`)
 }
