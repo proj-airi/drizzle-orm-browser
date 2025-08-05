@@ -24,13 +24,14 @@ export async function migrate<TSchema extends Record<string, unknown>>(db: Postg
   sql: string[]
 }[]) {
   const log = useLogg(packageJSON.name).withFormat(Format.Pretty)
+
+  await db.execute(sql`CREATE SCHEMA IF NOT EXISTS drizzle;`)
   const TABLE_NAME = sql.identifier('__drizzle_migrations')
 
   await db.execute(
-    sql`CREATE TABLE IF NOT EXISTS ${TABLE_NAME} (
+    sql`CREATE TABLE IF NOT EXISTS drizzle.${TABLE_NAME} (
       id bigserial PRIMARY KEY NOT NULL,
       hash text NOT NULL,
-      tag text NOT NULL,
       created_at bigint NOT NULL
     );`,
   )
@@ -44,19 +45,19 @@ export async function migrate<TSchema extends Record<string, unknown>>(db: Postg
       id,
       hash,
       created_at
-    FROM ${TABLE_NAME}
+    FROM drizzle.${TABLE_NAME}
     ORDER BY created_at DESC
     LIMIT 1;`,
   )
 
-  const deployment = deployments.rows.at(0)
+  const deployment = deployments[0]
   const migrations = bundledMigrations.filter((migration) => {
     const timestamp = deployment?.created_at ?? 0
     return !deployment || Number(timestamp) < migration.when
   })
   if (migrations.length === 0) {
     log.withField('tables', await listTables(db)).debug('no pending migrations')
-    log.log('no pending migrations to apply')
+    log.debug('no pending migrations to apply')
     return
   }
 
@@ -64,23 +65,21 @@ export async function migrate<TSchema extends Record<string, unknown>>(db: Postg
     for (let i = 0; i < migrations.length; i++) {
       const migration = migrations[i]
 
-      log.log(`${i + 1}. Deploying migration:`)
-      log.log(`     tag  => ${migration.tag}`)
-      log.log(`     hash => ${migration.hash}`)
+      log.debug(`${i + 1}. Deploying migration:`)
+      log.debug(`     hash => ${migration.hash}`)
       for (const stmt of migration.sql) {
         await tx.execute(stmt)
       }
 
       await tx.execute(sql`
-        INSERT INTO ${TABLE_NAME} ("hash", "created_at", "tag") VALUES (
+        INSERT INTO drizzle.${TABLE_NAME} ("hash", "created_at") VALUES (
           ${sql.raw(`'${migration.hash}'`)},
-          ${sql.raw(`${migration.when}`)},
-          ${sql.raw(`'${migration.tag}'`)}
+          ${sql.raw(`${migration.when}`)}
         );
       `)
     }
   })
 
   log.withField('tables', await listTables(db)).debug('migration successful')
-  log.log(`all ${migrations.length} pending migrations applied!`)
+  log.debug(`all ${migrations.length} pending migrations applied!`)
 }
