@@ -1,46 +1,9 @@
 {
-  "compilerOptions": {
-    "composite": true,
-    "target": "ESNext",
-    "lib": [
-      "ESNext"
-    ],
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "types": [
-      "vitest",
-      "vite/client"
-    ],
-
-    "allowJs": true,
-
-    /* Linting */
-    "strict": true,
-    "strictNullChecks": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noEmit": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true
-  },
   "references": [
     { "path": "./apps/playground/tsconfig.json" },
     { "path": "./packages/drizzle-orm-browser-migrator/tsconfig.json" },
-    { "path": "./packages/unplugin-drizzle-orm-migrations/tsconfig.json" }
+    { "path": "./packages/unplugin-drizzle-orm-migrations/tsconfig.json" },
+    { "path": "./tsconfig.node.json" }
   ],
-  "files": [],
-  "include": [
-    "uno.config.ts",
-    "eslint.config.ts",
-    "scripts/**/*.ts"
-  ]
+  "files": []
 }

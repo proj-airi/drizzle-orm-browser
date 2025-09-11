@@ -24,9 +24,7 @@
     "./esbuild": "./dist/esbuild.mjs",
     "./api": "./dist/api.mjs",
     "./types": {
-      "types": "./dist/types.d.mts",
-      "import": "./dist/types.mjs",
-      "require": "./dist/types.cjs"
+      "types": "./dist/types/index.d.mts"
     },
     "./*": "./*"
   },

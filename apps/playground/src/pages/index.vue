@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { PGlite } from '@electric-sql/pglite'
-import { IdbFs } from '@electric-sql/pglite'
+import { IdbFs, PGlite } from '@electric-sql/pglite'
 import { migrate } from '@proj-airi/drizzle-orm-browser-migrator/pglite'
 import { drizzle } from 'drizzle-orm/pglite'
 import migrations from 'virtual:drizzle-migrations.sql'
