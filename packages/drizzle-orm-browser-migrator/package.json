@@ -52,6 +52,6 @@
     "drizzle-orm": ">=0.44.0"
   },
   "dependencies": {
-    "@guiiai/logg": "^1.0.10"
+    "@guiiai/logg": "^1.1.0"
   }
 }

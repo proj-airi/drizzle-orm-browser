@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.2",
   "private": true,
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.15.1",
   "author": {
     "name": "Neko Ayaka",
     "email": "neko@ayaka.moe",
@@ -22,23 +22,23 @@
     "up": "taze -w -r -I -f && pnpm prune && pnpm dedupe"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.14.1",
+    "@antfu/eslint-config": "^5.3.0",
     "@antfu/ni": "^25.0.0",
-    "@types/node": "^22.15.32",
-    "@unocss/eslint-config": "^66.2.1",
-    "@unocss/eslint-plugin": "^66.2.1",
-    "@unocss/preset-web-fonts": "^66.2.1",
-    "bumpp": "^10.2.0",
+    "@types/node": "^24.3.1",
+    "@unocss/eslint-config": "^66.5.1",
+    "@unocss/eslint-plugin": "^66.5.1",
+    "@unocss/preset-web-fonts": "^66.5.1",
+    "bumpp": "^10.2.3",
     "changelogithub": "^13.16.0",
-    "eslint": "^9.29.0",
-    "taze": "^19.1.0",
-    "tsdown": "^0.12.8",
-    "tsx": "^4.20.3",
-    "typescript": "~5.8.3",
-    "unocss": "^66.2.1",
-    "unplugin-unused": "^0.5.1",
-    "vite": "^6.3.5",
-    "vite-plugin-inspect": "^11.2.0",
-    "vitest": "^3.2.3"
+    "eslint": "^9.35.0",
+    "taze": "^19.6.0",
+    "tsdown": "^0.15.0",
+    "tsx": "^4.20.5",
+    "typescript": "~5.9.2",
+    "unocss": "^66.5.1",
+    "unplugin-unused": "^0.5.3",
+    "vite": "^7.1.5",
+    "vite-plugin-inspect": "^11.3.3",
+    "vitest": "^3.2.4"
   }
 }
