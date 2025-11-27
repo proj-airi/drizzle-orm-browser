@@ -1,7 +1,7 @@
 {
   "name": "@proj-airi/unplugin-drizzle-orm-migrations",
   "type": "module",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "🦆 Drizzle ORM migrations bundler plugin for bundling drizzle-kit migrations!",
   "author": {
     "name": "Neko Ayaka",
