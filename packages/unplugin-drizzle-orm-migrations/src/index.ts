@@ -9,6 +9,8 @@ import { loadConfig } from 'c12'
 import { subtle } from 'uncrypto'
 import { createUnplugin } from 'unplugin'
 
+import { splitSQL } from './utils/split'
+
 export function newPlugin(isRolldownLike = false) {
   // https://github.com/rolldown/rolldown/issues/1115
   const VirtualModuleID = 'virtual:drizzle-migrations.sql'
@@ -70,10 +72,7 @@ export function newPlugin(isRolldownLike = false) {
               when,
               tag,
               hash: Buffer.from((await subtle.digest({ name: 'SHA-256' }, Buffer.from(migrateSQLFileContent, 'utf-8')))).toString('hex'),
-              sql: migrateSQLFileContent
-                .replace(/\n\t?/g, '')
-                .split('--> statement-breakpoint')
-                .map(x => x.trim()),
+              sql: splitSQL(migrateSQLFileContent),
             })
           }
         },
