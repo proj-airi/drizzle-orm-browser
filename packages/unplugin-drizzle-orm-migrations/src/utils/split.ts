@@ -1,8 +1,9 @@
 export function splitSQL(sql: string) {
-  return sql.replace(/\/\*[\s\S]*?\*\//g, '')
+  return sql
+    .replace(/\/\*[\s\S]*?\*\//g, '') // remove comments
     .split(/\r?\n\t?/g)
-    .map(line => line.replace(/^--.*$/g, ''))
-    .map(line => line.replace('--> statement-breakpoint', ''))
+    .map(line => line.replace(/^--.*$/g, '')) // remove comments
+    .map(line => line.replace('--> statement-breakpoint', '')) // remove statement-breakpoints
     .map(line => line.trim())
     .join(' ')
     .replaceAll(';', ';\n')
