@@ -19,13 +19,13 @@ npm i -D @proj-airi/unplugin-drizzle-orm-migrations @proj-airi/drizzle-orm-brows
 Configure your `vite.config.ts` (or rolldown, rspack, Webpack, esbuild, all supported) to use the plugin:
 
 ```ts
-import { unpluginDrizzleOrmMigrations } from '@proj-airi/unplugin-drizzle-orm-migrations/vite'
+import DrizzleORMMigrations from '@proj-airi/unplugin-drizzle-orm-migrations/vite'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [
     // ... other plugins
-    unpluginDrizzleOrmMigrations()
+    DrizzleORMMigrations()
   ]
 })
 ```
