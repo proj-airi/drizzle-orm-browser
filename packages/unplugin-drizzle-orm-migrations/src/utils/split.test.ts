@@ -3,6 +3,14 @@ import { describe, expect, it } from 'vitest'
 import { splitSQL } from './split'
 
 describe('splitSQL', () => {
+  it('should split SQL into tokens with mislead comments', () => {
+    const sql = `ALTER TABLE "chat_messages" ALTER COLUMN "jieba_tokens--" SET DEFAULT '[]'::jsonb;`
+    const tokens = splitSQL(sql)
+    expect(tokens).toEqual([
+      'ALTER TABLE "chat_messages" ALTER COLUMN "jieba_tokens--" SET DEFAULT \'[]\'::jsonb;',
+    ])
+  })
+
   it('should split SQL into tokens with no statement-breakpoints', () => {
     const sql = `ALTER TABLE "chat_messages" ALTER COLUMN "jieba_tokens" SET DEFAULT '[]'::jsonb;`
     const tokens = splitSQL(sql)
