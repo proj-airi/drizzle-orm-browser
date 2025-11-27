@@ -15,7 +15,7 @@ import { newPlugin } from './index'
  * import DrizzleORMMigrations from '@proj-airi/unplugin-drizzle-orm-migrations/vite'
  *
  * export default defineConfig({
- *   plugins: [Unused()],
+ *   plugins: [DrizzleORMMigrations()],
  * })
  * ```
  */
