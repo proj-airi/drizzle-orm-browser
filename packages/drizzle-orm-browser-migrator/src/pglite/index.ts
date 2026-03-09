@@ -1,3 +1,4 @@
+import type { Logg } from '@guiiai/logg'
 import type { PgliteDatabase } from 'drizzle-orm/pglite'
 
 import { Format, useLogg } from '@guiiai/logg'
@@ -16,14 +17,18 @@ async function listTables<TSchema extends Record<string, unknown>>(db: PgliteDat
   return res.rows
 }
 
+export interface MigrateOptions {
+  logger?: Logg
+}
+
 export async function migrate<TSchema extends Record<string, unknown>>(db: PgliteDatabase<TSchema>, bundledMigrations: {
   idx: number
   when: number
   tag: string
   hash: string
   sql: string[]
-}[]) {
-  const log = useLogg(packageJSON.name).withFormat(Format.Pretty)
+}[], options?: MigrateOptions) {
+  const log = options?.logger ?? useLogg(packageJSON.name).withFormat(Format.Pretty)
   const TABLE_NAME = sql.identifier('__drizzle_migrations')
 
   await db.execute(

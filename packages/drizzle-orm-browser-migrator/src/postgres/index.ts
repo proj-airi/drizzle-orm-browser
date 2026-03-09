@@ -1,3 +1,4 @@
+import type { Logg } from '@guiiai/logg'
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
 
 import { Format, useLogg } from '@guiiai/logg'
@@ -17,14 +18,18 @@ async function listTables<TSchema extends Record<string, unknown>>(db: PostgresJ
   return res
 }
 
+export interface MigrateOptions {
+  logger?: Logg
+}
+
 export async function migrate<TSchema extends Record<string, unknown>>(db: PostgresJsDatabase<TSchema>, bundledMigrations: {
   idx: number
   when: number
   tag: string
   hash: string
   sql: string[]
-}[]) {
-  const log = useLogg(packageJSON.name).withFormat(Format.Pretty)
+}[], options?: MigrateOptions) {
+  const log = options?.logger ?? useLogg(packageJSON.name).withFormat(Format.Pretty)
 
   await db.execute(sql`CREATE SCHEMA IF NOT EXISTS drizzle;`)
   const TABLE_NAME = sql.identifier('__drizzle_migrations')
