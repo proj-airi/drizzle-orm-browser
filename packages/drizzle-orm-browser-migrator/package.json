@@ -29,6 +29,11 @@
       "types": "./dist/pg/index.d.mts",
       "import": "./dist/pg/index.mjs",
       "node": "./dist/pg/index.mjs"
+    },
+    "./postgres": {
+      "types": "./dist/postgres/index.d.mts",
+      "import": "./dist/postgres/index.mjs",
+      "node": "./dist/postgres/index.mjs"
     }
   },
   "main": "./dist/index.mjs",

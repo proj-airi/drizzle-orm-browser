@@ -67,8 +67,9 @@ export async function migrate<TSchema extends Record<string, unknown>>(db: Pglit
       const migration = pendingMigration[i]
 
       log.log(`${i + 1}. Deploying migration:`)
-      log.log(`     tag  => ${migration.tag}`)
-      log.log(`     hash => ${migration.hash}`)
+      log.log(`     tag        => ${migration.tag}`)
+      log.log(`     hash       => ${migration.hash}`)
+      log.log(`     created_at => ${new Date(migration.when).toISOString()}`)
       for (const stmt of migration.sql) {
         await tx.execute(stmt)
       }

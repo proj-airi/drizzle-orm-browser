@@ -1,11 +1,11 @@
-import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
+import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
 
 import { Format, useLogg } from '@guiiai/logg'
 import { sql } from 'drizzle-orm'
 
 import packageJSON from '../../package.json' with { type: 'json' }
 
-async function listTables<TSchema extends Record<string, unknown>>(db: NodePgDatabase<TSchema>) {
+async function listTables<TSchema extends Record<string, unknown>>(db: PostgresJsDatabase<TSchema>) {
   const res = await db.execute(sql`
     SELECT
       table_name
@@ -13,10 +13,11 @@ async function listTables<TSchema extends Record<string, unknown>>(db: NodePgDat
     WHERE table_schema = 'public';
   `)
 
-  return res.rows
+  // postgres.js execute() returns RowList (extends Array), not a QueryResult with .rows
+  return res
 }
 
-export async function migrate<TSchema extends Record<string, unknown>>(db: NodePgDatabase<TSchema>, bundledMigrations: {
+export async function migrate<TSchema extends Record<string, unknown>>(db: PostgresJsDatabase<TSchema>, bundledMigrations: {
   idx: number
   when: number
   tag: string
@@ -50,7 +51,7 @@ export async function migrate<TSchema extends Record<string, unknown>>(db: NodeP
     LIMIT 1;`,
   )
 
-  const deployment = deployments.rows[0]
+  const deployment = deployments[0]
   const migrations = bundledMigrations.filter((migration) => {
     const timestamp = deployment?.created_at ?? 0
     return !deployment || Number(timestamp) < migration.when
